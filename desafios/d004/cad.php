@@ -11,18 +11,28 @@
 
 <body>
     <main>
-        <h1>Resultado do processamento</h1>
-        <p>
-            <?php
-            // var_dump($_GET); //"$_REQUEST" É A junçao das superglobal: $_GET ,$_POST $_COOKIES
-            $n = $_GET["number"] ?? 0; //Operador de coalescência nula
-            $antecessor = $n - 1;
-            $sucessor = $n + 1;
-            echo "O número escolhido foi<strong> $n</strong></br>";
-            echo " O seu antecessor é<strong> $antecessor</strong></br>";
-            echo " O seu sucessor é <strong> $sucessor</strong>"
-            ?>
-        </p>
+        <h1>Conversor de Moedas v1.0</h1>
+        <?php
+
+        $cotacao = 5.17;
+        $n = $_GET["number"] ?? 0;
+
+        //usando formatação baśica:
+        // o separador americano de milha, milhao é a "," e o de decimal é o ".", mas como no brazil é ao contrario, tem que inverter
+        $dolar = $n / $cotacao;
+        // usando formatação de moedas com internacionalização!
+        //biblioteca intl(internallization PHP)
+        // mas tem que colocar para funcionar no php.ini
+        // $dolar = $n / $cotacao;
+        // $padrao = numfmt_create("us", NumberFormatter::CURRENCY);
+
+
+        // echo "Seus R$" . numfmt_format_currency($padrao, $n, "BRL") . "equivalem a<strong>US$" . numfmt_format_currency($padrao, $dolar, "USD") . "</strong></br>";
+        // echo "<strong>Cotação fixa de \$ $cotacao</strong> informada diretamente no código";
+
+        echo "Seus R$" . $n . " equivalem a<strong> US$" . number_format($dolar, 2, ",", ".") . "</strong></br>";
+        echo "<strong>Cotação fixa de \$" . number_format($cotacao, 2, ", ", " . ") . "</strong>  informada diretamente no código";
+        ?>
         <button onclick="javascript:history.go(-1)">&#x2B05;Voltar</button>
     </main>
 </body>
