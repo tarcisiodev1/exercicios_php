@@ -11,18 +11,21 @@
 
 <body>
     <main>
-        <h1>Resultado do processamento</h1>
-        <p>
-            <?php
-            // var_dump($_GET); //"$_REQUEST" É A junçao das superglobal: $_GET ,$_POST $_COOKIES
-            $n = $_GET["number"] ?? 0; //Operador de coalescência nula
-            $antecessor = $n - 1;
-            $sucessor = $n + 1;
-            echo "O número escolhido foi<strong> $n</strong></br>";
-            echo " O seu antecessor é<strong> $antecessor</strong></br>";
-            echo " O seu sucessor é <strong> $sucessor</strong>"
-            ?>
-        </p>
+        <h1>Analisador de Numero Real</h1>
+
+        <?php
+        $num = $_POST["number"] ?? 0;
+        echo "<p>Analisando o número <strong>" . number_format($num, 3, ",", ".") . "</strong> informado pelo usuário:</p>";
+
+        $int = (int) $num;
+        $fra = $num - $int;
+
+        echo "<ul><li> A parte inteira do número é <strong>" . number_format($int, 0, ",", ".") . "</strong></li>";
+
+        echo "<li> A parte fracionária do número é <strong>" . number_format($fra, 3, ",", ".") . "</strong></li></ul> ";
+
+        ?>
+
         <button onclick="javascript:history.go(-1)">&#x2B05;Voltar</button>
     </main>
 </body>

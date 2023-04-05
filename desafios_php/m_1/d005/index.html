@@ -10,11 +10,11 @@
   <body>
     <main>
       <h1>Informe um número</h1>
-      <form action="cad.php" method="get">
-        <label for="nome">Número: </label>
-        <input type="number" name="number" id="idnumber" />
+      <form action="cad.php" method="post">
+        <label for="nome">Número Real: </label>
+        <input type="number" name="number" id="idnumber" step="0.001" />
 
-        <input type="submit" value="Enviar" />
+        <input type="submit" value="Analisar" />
       </form>
     </main>
   </body>
