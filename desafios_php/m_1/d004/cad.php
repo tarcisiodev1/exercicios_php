@@ -11,10 +11,21 @@
 
 <body>
     <main>
+
         <h1>Conversor de Moedas v1.0</h1>
+
+
+
         <?php
 
-        $cotacao = 5.17;
+
+
+        //cotação vinda da api do banco central
+        $inicio = date("m-d-Y", strtotime("-7 days"));
+        $fim =  date("m-d-Y");
+        $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial=%27' .  $inicio . '%27&@dataFinalCotacao=%27' . $fim . '%27&$top=1&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
+        $dados = json_decode(file_get_contents($url), true);
+        $cotacao = $dados["value"][0]["cotacaoCompra"];
         $n = $_GET["number"] ?? 0;
 
         //usando formatação baśica:
@@ -31,9 +42,15 @@
         // echo "<strong>Cotação fixa de \$ $cotacao</strong> informada diretamente no código";
 
         echo "Seus R$" . $n . " equivalem a<strong> US$" . number_format($dolar, 2, ",", ".") . "</strong></br>";
-        echo "<strong>Cotação fixa de \$" . number_format($cotacao, 2, ", ", " . ") . "</strong>  informada diretamente no código";
+        echo "<strong>Cotação de \$" . number_format($cotacao, 2, ", ", " . ") . "</strong>  informada <a
+        href='https://dadosabertos.bcb.gov.br/dataset/dolar-americano-usd-todos-os-boletins-diarios'>da api do banco
+        central</a>";
         ?>
         <button onclick="javascript:history.go(-1)">&#x2B05;Voltar</button>
+
+
+
+
     </main>
 </body>
 
